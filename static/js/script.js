@@ -101,6 +101,76 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // --- 4b. Manual Verification Click Handler ---
+    document.querySelectorAll(".btn-verify-single").forEach(btn => {
+        btn.addEventListener("click", async () => {
+            const recordId = btn.dataset.recordId;
+            try {
+                const res = await fetch(`/api/records/${recordId}`);
+                if (!res.ok) throw new Error("Could not load record details.");
+                const record = await res.json();
+                openManualVerifyModal(record);
+            } catch (err) {
+                alert("Error loading record: " + err.message);
+            }
+        });
+    });
+
+    const manualVerifyForm = document.getElementById("manualVerifyForm");
+    if (manualVerifyForm) {
+        manualVerifyForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const recordId = document.getElementById("verifyRecordId").value;
+            const payload = {
+                authority: document.getElementById("verifyAuthority").value.trim(),
+                notes: document.getElementById("verifyOfficerNotes").value.trim()
+            };
+
+            const submitBtn = manualVerifyForm.querySelector("button[type='submit']");
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Verifying...";
+
+            try {
+                const res = await fetch(`/api/records/${recordId}/verify`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    closeModal("manualVerifyModal");
+                    // Update table row in real-time
+                    const row = document.querySelector(`tr[data-record-id="${recordId}"]`);
+                    if (row) {
+                        row.dataset.status = "verified";
+                        const badge = row.querySelector(".badge");
+                        if (badge) {
+                            badge.className = "badge verified";
+                            badge.innerText = "Verified";
+                        }
+                        const scoreEl = row.querySelector("td:nth-child(8) strong");
+                        if (scoreEl) {
+                            scoreEl.innerText = `${data.record.validation_score || 95}%`;
+                        }
+                        const verifyBtn = row.querySelector(".btn-verify-single");
+                        if (verifyBtn) {
+                            verifyBtn.classList.add("is-verified");
+                            verifyBtn.innerText = "✓ Verified";
+                        }
+                    }
+                    alert(`Record #${recordId} (${data.record.owner_name}) has been marked as Verified!`);
+                } else {
+                    alert(data.message || "Failed to verify record.");
+                }
+            } catch (err) {
+                alert("Error during verification: " + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "✓ Confirm & Mark Verified";
+            }
+        });
+    }
+
     // --- 5. Manual Record Creation Modal ---
     if (openAddModalBtn) {
         openAddModalBtn.addEventListener("click", () => {
@@ -448,6 +518,51 @@ function openEditModal(record) {
     document.getElementById("editEmail").value = record.email || '';
 
     editModal.classList.remove("hidden");
+}
+
+function openManualVerifyModal(record) {
+    const modal = document.getElementById("manualVerifyModal");
+    if (!modal) return;
+
+    document.getElementById("verifyRecordIdDisplay").innerText = record.id;
+    document.getElementById("verifyRecordId").value = record.id;
+    document.getElementById("verifyOwnerName").innerText = record.owner_name || 'Unknown';
+    document.getElementById("verifyDagNumber").innerText = record.dag_number || 'N/A';
+    document.getElementById("verifyPattaNumber").innerText = record.patta_number || 'N/A';
+    document.getElementById("verifyLocation").innerText = `${record.village || 'N/A'}, ${record.district || 'N/A'}`;
+
+    const badgeEl = document.getElementById("verifyCurrentStatusBadge");
+    if (badgeEl) {
+        const statusClass = (record.status || '').toLowerCase().replace(' ', '-');
+        badgeEl.className = `badge ${statusClass}`;
+        badgeEl.innerText = record.status || 'Pending';
+    }
+
+    // Warnings/conflicts alert
+    const notesAlert = document.getElementById("verifyNotesAlert");
+    const notesContent = document.getElementById("verifyNotesContent");
+    if (notesAlert && notesContent) {
+        let notes = [];
+        if (record.validation_notes) {
+            try {
+                notes = JSON.parse(record.validation_notes);
+                if (!Array.isArray(notes)) notes = [notes];
+            } catch {
+                notes = [record.validation_notes];
+            }
+        }
+
+        if (notes.length && record.status !== 'Verified') {
+            notesAlert.classList.remove("hidden");
+            notesContent.innerHTML = `<ul style="margin: 4px 0 0 16px; padding: 0;">${notes.map(n => `<li>${n}</li>`).join('')}</ul>`;
+        } else {
+            notesAlert.classList.add("hidden");
+            notesContent.innerHTML = "";
+        }
+    }
+
+    document.getElementById("verifyOfficerNotes").value = "";
+    modal.classList.remove("hidden");
 }
 
 function closeModal(modalId) {

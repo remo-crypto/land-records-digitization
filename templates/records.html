@@ -3,6 +3,7 @@
 <div class="page-header-row">
     <h1 class="page-title">Admin Land Records Registry</h1>
     <div class="header-actions">
+        <a href="{{ url_for('verify_page') }}" class="btn-secondary btn-small" title="Interactive plot allotment check">🔍 Check Allotment & Rules</a>
         <a href="{{ url_for('upload_page') }}" class="btn-primary btn-small">+ Upload Scan Document</a>
         <button type="button" class="btn-secondary btn-small" id="openAddModalBtn">+ Add Record Manually</button>
     </div>
@@ -58,6 +59,17 @@
                     <td><span class="badge {{ r.status | lower | replace(' ', '-') }}">{{ r.status }}</span></td>
                     <td class="action-cell">
                         <a href="{{ url_for('record_detail', record_id=r.id) }}" class="btn-sm" title="View details">View</a>
+                        <button type="button" class="btn-sm btn-verify-sm btn-verify-single {% if r.status == 'Verified' %}is-verified{% endif %}" 
+                                data-record-id="{{ r.id }}" 
+                                data-owner="{{ r.owner_name or 'Unknown' }}" 
+                                data-dag="{{ r.dag_number or '' }}" 
+                                data-patta="{{ r.patta_number or '' }}" 
+                                data-district="{{ r.district or '' }}" 
+                                data-village="{{ r.village or '' }}" 
+                                data-status="{{ r.status }}" 
+                                title="Manually verify this record">
+                            {% if r.status == 'Verified' %}✓ Verified{% else %}✓ Verify{% endif %}
+                        </button>
                         <button type="button" class="btn-sm btn-edit btn-edit-single" data-record-id="{{ r.id }}" title="Edit record">Edit</button>
                         <button type="button" class="btn-sm btn-danger-sm btn-delete-single" data-record-id="{{ r.id }}" data-owner="{{ r.owner_name or 'Record' }}" title="Delete this single record">Delete</button>
                     </td>
@@ -215,6 +227,47 @@
             <div class="modal-actions">
                 <button type="button" class="btn-secondary" onclick="closeModal('addModal')">Cancel</button>
                 <button type="submit" class="btn-primary">Add Record</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Manually Verify Land Record -->
+<div id="manualVerifyModal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Manual Verification: Record #<span id="verifyRecordIdDisplay"></span></h3>
+            <button type="button" class="modal-close" onclick="closeModal('manualVerifyModal')">&times;</button>
+        </div>
+        <form id="manualVerifyForm">
+            <input type="hidden" id="verifyRecordId">
+            <div class="verification-summary-card">
+                <div class="summary-row"><strong>Owner Name:</strong> <span id="verifyOwnerName"></span></div>
+                <div class="summary-row"><strong>Plot / Dag No:</strong> <span id="verifyDagNumber"></span></div>
+                <div class="summary-row"><strong>Patta No:</strong> <span id="verifyPattaNumber"></span></div>
+                <div class="summary-row"><strong>Location:</strong> <span id="verifyLocation"></span></div>
+                <div class="summary-row"><strong>Current Status:</strong> <span id="verifyCurrentStatusBadge"></span></div>
+            </div>
+
+            <div id="verifyNotesAlert" class="alert-box alert-warning hidden" style="margin-top: 12px;">
+                <strong>⚠️ Existing System Notices:</strong>
+                <div id="verifyNotesContent" style="margin-top: 4px; font-size: 0.85rem;"></div>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label for="verifyAuthority">Verifying Authority / Officer Title</label>
+                <input type="text" id="verifyAuthority" value="Circle Revenue Officer" required>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+                <label for="verifyOfficerNotes">Verification Notes / Justification</label>
+                <textarea id="verifyOfficerNotes" rows="3" placeholder="e.g. Field verification complete. Dag number matches physical chitha at Revenue Circle Office. Boundary disputes resolved." style="width:100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem;"></textarea>
+                <span class="form-hint">This action will set the record status to <strong>Verified</strong> and log an official verification timestamp in the permanent audit trail.</span>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeModal('manualVerifyModal')">Cancel</button>
+                <button type="submit" class="btn-primary" style="background: #16a34a; border-color: #16a34a;">✓ Confirm & Mark Verified</button>
             </div>
         </form>
     </div>

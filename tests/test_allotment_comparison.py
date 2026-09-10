@@ -167,3 +167,40 @@ def test_download_and_export_csv_endpoints(tmp_path):
         export_text = export_res.data.decode('utf-8')
         assert 'Jonali Baruah' in export_text
         assert '201' in export_text
+
+
+def test_manual_verify_record_endpoint(tmp_path):
+    app = create_app({
+        'SQLALCHEMY_DATABASE_URI': f"sqlite:///{tmp_path / 'test_manual_verify.db'}"
+    })
+    client = app.test_client()
+
+    with app.app_context():
+        db.create_all()
+        r = LandRecord(
+            owner_name="Deepak Sharma",
+            dag_number="145",
+            patta_number="KP-192",
+            status="Needs Review",
+            validation_score=50,
+            document_path="uploads/test.txt"
+        )
+        db.session.add(r)
+        db.session.commit()
+        record_id = r.id
+
+        res = client.post(f'/api/records/{record_id}/verify', json={
+            'authority': 'Assistant Settlement Officer',
+            'notes': 'Cadastral survey verified on ground.'
+        })
+        assert res.status_code == 200
+        data = res.get_json()
+        assert data['success'] is True
+        assert data['record']['status'] == 'Verified'
+        assert data['record']['validation_score'] >= 90
+        assert 'Cadastral survey verified on ground' in data['record']['validation_notes']
+
+        # Verify persisted state in DB
+        updated = db.session.get(LandRecord, record_id)
+        assert updated.status == 'Verified'
+        assert updated.validation_score >= 90

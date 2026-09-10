@@ -263,6 +263,40 @@ def create_app(config_overrides=None):
             "record": record.to_dict()
         })
 
+    @app.route('/api/records/<int:record_id>/verify', methods=['POST'])
+    def manual_verify_record(record_id):
+        """Administrative manual verification of a land record with audit notes."""
+        record = db.get_or_404(LandRecord, record_id)
+        data = request.get_json() or {}
+        officer_note = data.get('notes', '').strip()
+        authority = data.get('authority', 'Revenue Officer').strip()
+
+        record.status = 'Verified'
+        if not record.validation_score or record.validation_score < 90:
+            record.validation_score = 95
+
+        existing_notes = []
+        if record.validation_notes:
+            try:
+                parsed = json.loads(record.validation_notes)
+                existing_notes = parsed if isinstance(parsed, list) else [str(parsed)]
+            except Exception:
+                existing_notes = [record.validation_notes]
+
+        now_str = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+        note_entry = f"Manually verified by {authority} on {now_str}"
+        if officer_note:
+            note_entry += f": {officer_note}"
+        existing_notes.append(note_entry)
+        record.validation_notes = json.dumps(existing_notes)
+
+        db.session.commit()
+        return jsonify({
+            "success": True,
+            "message": f"Record #{record.id} ({record.owner_name}) successfully marked as Verified.",
+            "record": record.to_dict()
+        })
+
     @app.route('/api/records/manual', methods=['POST'])
     def create_manual_record():
         """Administrative entry to add a land record directly."""

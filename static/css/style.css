@@ -100,6 +100,13 @@ body { background-color: var(--bg-color); color: var(--text-color); line-height:
 .btn-danger-sm:hover { background: #b91c1c; }
 .btn-edit { background: #0284c7; color: #fff; border: none; cursor: pointer; }
 .btn-edit:hover { background: #0369a1; }
+.btn-verify-sm { background: #16a34a; color: #fff; border: none; cursor: pointer; font-weight: 500; }
+.btn-verify-sm:hover { background: #15803d; }
+.btn-verify-sm.is-verified { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.btn-verify-sm.is-verified:hover { background: #dcfce7; }
+.verification-summary-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; }
+.summary-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px; }
+.summary-row:last-child { border-bottom: none; }
 
 .action-cell { display: flex; gap: 6px; align-items: center; }
 .unique-id-badge { background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-family: monospace; border: 1px solid #e2e8f0; font-weight: 600; }
