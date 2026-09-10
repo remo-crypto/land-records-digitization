@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">Upload Land Record</h1>
+
+<div class="card upload-card">
+    <form id="uploadForm" class="upload-form">
+        <div class="drop-zone" id="dropZone">
+            <p>Drag & Drop scan document here or</p>
+            <input type="file" id="fileInput" name="file" accept=".pdf,.jpg,.jpeg,.png" required>
+            <span class="file-hint">Supported: PDF, JPG, JPEG, PNG</span>
+        </div>
+        <button type="submit" class="btn-primary" id="uploadBtn">Upload & Process</button>
+    </form>
+
+    <div id="processingSection" class="processing-section hidden">
+        <h3>Processing Status</h3>
+        <ul class="progress-steps">
+            <li id="step1">☁️ Uploading document...</li>
+            <li id="step2">🔍 Running Tesseract OCR...</li>
+            <li id="step3">🧠 Extracting structured fields...</li>
+            <li id="step4">⚖️ Running Validation & Conflict Engine...</li>
+        </ul>
+        <div id="processComplete" class="hidden">
+            <p class="success-text">✓ Processing Complete!</p>
+            <div id="uploadComparison" class="comparison-box"></div>
+            <a id="viewRecordBtn" href="#" class="btn-primary">View Record & Validation Results</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

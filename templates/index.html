@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">Dashboard Overview</h1>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>Total Records</h3>
+        <p class="stat-number">{{ total }}</p>
+    </div>
+    <div class="stat-card success">
+        <h3>Verified</h3>
+        <p class="stat-number">{{ verified }}</p>
+    </div>
+    <div class="stat-card warning">
+        <h3>Needs Review</h3>
+        <p class="stat-number">{{ needs_review }}</p>
+    </div>
+    <div class="stat-card danger">
+        <h3>Conflicts</h3>
+        <p class="stat-number">{{ conflicts }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Recent Records</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Dag No</th>
+                <th>Patta No</th>
+                <th>Owner</th>
+                <th>Village</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in recent %}
+            <tr>
+                <td>#{{ r.id }}</td>
+                <td>{{ r.dag_number or 'N/A' }}</td>
+                <td>{{ r.patta_number or 'N/A' }}</td>
+                <td>{{ r.owner_name or 'N/A' }}</td>
+                <td>{{ r.village or 'N/A' }}</td>
+                <td><strong>{{ r.validation_score }}%</strong></td>
+                <td><span class="badge {{ r.status | lower | replace(' ', '-') }}">{{ r.status }}</span></td>
+                <td><a href="{{ url_for('record_detail', record_id=r.id) }}" class="btn-sm">View</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="8">No records available. Upload a document to get started.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

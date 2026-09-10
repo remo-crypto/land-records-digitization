@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">Land Record #{{ record.id }}</h1>
+
+<div class="details-grid">
+    <div class="card">
+        <div class="details-header">
+            <h2>Record Information</h2>
+            <div class="header-btns">
+                <button type="button" class="btn-primary btn-small btn-edit-single" data-record-id="{{ record.id }}">Edit Record</button>
+                <button class="btn-danger btn-small" id="deleteRecordBtn" data-record-id="{{ record.id }}">Delete This Record</button>
+            </div>
+        </div>
+        <div class="field-group">
+            <label>Unique Land ID:</label>
+            <p><code class="unique-id-badge">{{ record.unique_id or ('ASM-' ~ record.id) }}</code></p>
+        </div>
+        <div class="field-group">
+            <label>Owner Name:</label>
+            <p><strong>{{ record.owner_name or 'Not detected' }}</strong></p>
+        </div>
+        <div class="field-group">
+            <label>Father's Name:</label>
+            <p>{{ record.father_name or 'Not detected' }}</p>
+        </div>
+        <div class="field-group">
+            <label>Contact Number:</label>
+            <p>{{ record.contact_no or 'Not registered' }}</p>
+        </div>
+        <div class="field-group">
+            <label>Email / Gmail:</label>
+            <p>{{ record.email or 'Not registered' }}</p>
+        </div>
+        <div class="field-group">
+            <label>District:</label>
+            <p>{{ record.district or 'Not detected' }}</p>
+        </div>
+        <div class="field-group">
+            <label>Circle:</label>
+            <p>{{ record.circle or 'Not detected' }}</p>
+        </div>
+        <div class="field-group">
+            <label>Village:</label>
+            <p>{{ record.village or 'Not detected' }}</p>
+        </div>
+        <div class="field-group">
+            <label>Dag Number:</label>
+            <p><strong>{{ record.dag_number or 'Not detected' }}</strong></p>
+        </div>
+        <div class="field-group">
+            <label>Patta Number:</label>
+            <p>{{ record.patta_number or 'Not detected' }}</p>
+        </div>
+        <div class="field-group">
+            <label>Area (Assam standard):</label>
+            <p>{{ record.area or 'Not detected' }}</p>
+        </div>
+        <div class="field-group">
+            <label>Land Type:</label>
+            <p>{{ record.land_type or 'Not detected' }}</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Validation Results</h2>
+        <div class="score-box">
+            <div class="score-circle">{{ record.validation_score or 0 }}%</div>
+            <div>
+                <h3>Status: <span class="badge {{ record.status | lower | replace(' ', '-') }}">{{ record.status }}</span></h3>
+            </div>
+        </div>
+
+        <hr>
+        <h3>Validation & Conflict Log</h3>
+        <ul class="notes-list">
+            {% for note in notes %}
+                <li class="{% if 'CONFLICT' in note or 'Mismatch' in note %}danger-note{% else %}warning-note{% endif %}">
+                    {{ note }}
+                </li>
+            {% else %}
+                <li class="success-note">✓ All automated checks passed seamlessly.</li>
+            {% endfor %}
+        </ul>
+
+        <hr>
+        <h3>Match Comparison</h3>
+        <div id="comparisonBox" class="comparison-box">
+            <button class="btn-primary btn-small" id="compareBtn">Compare with existing records</button>
+        </div>
+
+        <hr>
+        <h3>Raw OCR Text</h3>
+        <textarea class="ocr-preview" readonly>{{ record.ocr_text }}</textarea>
+    </div>
+</div>
+
+<!-- Modal: Edit Record -->
+<div id="editModal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Land Record #<span id="editRecordIdDisplay">{{ record.id }}</span></h3>
+            <button type="button" class="modal-close" onclick="closeModal('editModal')">&times;</button>
+        </div>
+        <form id="editRecordForm">
+            <input type="hidden" id="editRecordId" value="{{ record.id }}">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="editOwnerName">Owner Name *</label>
+                    <input type="text" id="editOwnerName" value="{{ record.owner_name or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="editFatherName">Father's Name</label>
+                    <input type="text" id="editFatherName" value="{{ record.father_name or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="editDagNumber">Plot / Dag Number *</label>
+                    <input type="text" id="editDagNumber" value="{{ record.dag_number or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPattaNumber">Patta Number</label>
+                    <input type="text" id="editPattaNumber" value="{{ record.patta_number or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="editDistrict">District (Assam)</label>
+                    <input type="text" id="editDistrict" value="{{ record.district or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="editCircle">Revenue Circle</label>
+                    <input type="text" id="editCircle" value="{{ record.circle or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="editVillage">Village</label>
+                    <input type="text" id="editVillage" value="{{ record.village or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="editArea">Area</label>
+                    <input type="text" id="editArea" value="{{ record.area or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="editLandType">Land Type</label>
+                    <select id="editLandType">
+                        <option value="Agricultural" {% if record.land_type == 'Agricultural' %}selected{% endif %}>Agricultural</option>
+                        <option value="Residential" {% if record.land_type == 'Residential' %}selected{% endif %}>Residential</option>
+                        <option value="Commercial" {% if record.land_type == 'Commercial' %}selected{% endif %}>Commercial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Verification Status</label>
+                    <select id="editStatus">
+                        <option value="Verified" {% if record.status == 'Verified' %}selected{% endif %}>Verified</option>
+                        <option value="Needs Review" {% if record.status == 'Needs Review' %}selected{% endif %}>Needs Review</option>
+                        <option value="Conflict" {% if record.status == 'Conflict' %}selected{% endif %}>Conflict</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editContactNo">Contact No</label>
+                    <input type="text" id="editContactNo" value="{{ record.contact_no or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email / Gmail</label>
+                    <input type="email" id="editEmail" value="{{ record.email or '' }}">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeModal('editModal')">Cancel</button>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

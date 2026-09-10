@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header-row">
+    <h1 class="page-title">Admin Land Records Registry</h1>
+    <div class="header-actions">
+        <a href="{{ url_for('upload_page') }}" class="btn-primary btn-small">+ Upload Scan Document</a>
+        <button type="button" class="btn-secondary btn-small" id="openAddModalBtn">+ Add Record Manually</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="filter-bar">
+        <div class="filter-chips">
+            <button type="button" class="chip active" onclick="filterTable('all')">All Records</button>
+            <button type="button" class="chip" onclick="filterTable('verified')">Verified</button>
+            <button type="button" class="chip" onclick="filterTable('needs-review')">Needs Review</button>
+            <button type="button" class="chip" onclick="filterTable('conflict')">Conflicts</button>
+        </div>
+        <div class="table-search">
+            <input type="text" id="tableFilterInput" placeholder="Filter by name, dag, village..." onkeyup="filterTableBySearch()">
+        </div>
+    </div>
+
+    {% if records %}
+    <div class="records-toolbar">
+        <span class="records-count" id="visibleCount">{{ records|length }} record(s) loaded</span>
+    </div>
+    <div class="table-responsive">
+        <table class="data-table" id="recordsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Unique ID</th>
+                    <th>Plot / Dag No</th>
+                    <th>Patta No</th>
+                    <th>Owner Name</th>
+                    <th>Village & District</th>
+                    <th>Area</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                    <th>Actions (Single Record)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in records %}
+                <tr data-status="{{ r.status | lower | replace(' ', '-') }}" data-record-id="{{ r.id }}">
+                    <td>#{{ r.id }}</td>
+                    <td><code class="unique-id-badge">{{ r.unique_id or ('ASM-' ~ r.id) }}</code></td>
+                    <td><strong>{{ r.dag_number or 'N/A' }}</strong></td>
+                    <td>{{ r.patta_number or 'N/A' }}</td>
+                    <td>
+                        <span class="owner-name">{{ r.owner_name or 'Unknown' }}</span>
+                        {% if r.contact_no %}<small class="owner-contact"><br>📞 {{ r.contact_no }}</small>{% endif %}
+                    </td>
+                    <td>{{ r.village or 'N/A' }}<br><small class="text-muted">{{ r.district or 'N/A' }}</small></td>
+                    <td>{{ r.area or 'N/A' }}</td>
+                    <td><strong>{{ r.validation_score or 0 }}%</strong></td>
+                    <td><span class="badge {{ r.status | lower | replace(' ', '-') }}">{{ r.status }}</span></td>
+                    <td class="action-cell">
+                        <a href="{{ url_for('record_detail', record_id=r.id) }}" class="btn-sm" title="View details">View</a>
+                        <button type="button" class="btn-sm btn-edit btn-edit-single" data-record-id="{{ r.id }}" title="Edit record">Edit</button>
+                        <button type="button" class="btn-sm btn-danger-sm btn-delete-single" data-record-id="{{ r.id }}" data-owner="{{ r.owner_name or 'Record' }}" title="Delete this single record">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h3>No administrative records found</h3>
+        <p>You can upload scanned documents or seed the Assam registry dataset.</p>
+        <a href="{{ url_for('upload_page') }}" class="btn-primary">Upload Land Document</a>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+sl no,name,email,contact no,gmail,plot no or dag no,unique id,father name,district,circle,village,patta no,area,land type,status
+1,Ramesh Basumatary,ramesh.basumatary@assam.gov.in,+91 98640 12001,ramesh.basumatary101@gmail.com,101,ASM-BAK-2024-0101,Mohan Basumatary,Baksa,Tamulpur,Barbari,KP-45,2B-1K-5L,Agricultural,Verified
+2,Suresh Boro,suresh.boro@assam.gov.in,+91 94350 23002,suresh.boro102@gmail.com,102,ASM-BAK-2024-0102,Maniram Boro,Baksa,Salbari,Khairbari,KP-46,1B-3K-10L,Agricultural,Verified
+3,Haren Daimary,haren.daimary@gmail.com,+91 97060 34003,haren.daimary103@gmail.com,103,ASM-UDL-2024-0103,Gopal Daimary,Udalguri,Khoirabari,Bhairabkunda,KP-51,3B-0K-8L,Agricultural,Verified
+4,Biren Basumatary,biren.basumatary@gmail.com,+91 99540 45004,biren.basumatary104@gmail.com,104,ASM-KOK-2024-0104,Dinesh Basumatary,Kokrajhar,Gossaigaon,Serfanguri,KP-53,2B-2K-6L,Agricultural,Verified
+5,Mina Boro,mina.boro@gmail.com,+91 98590 56005,mina.boro105@gmail.com,105,ASM-KOK-2024-0105,Ranjit Boro,Kokrajhar,Kokrajhar,Dhaligaon,KP-57,1B-1K-12L,Residential,Verified
+6,Pradip Das,pradip.das@assam.gov.in,+91 94351 67006,pradip.das106@gmail.com,106,ASM-BAR-2024-0106,Harendra Das,Barpeta,Barpeta,Howly,KP-61,2B-0K-5L,Agricultural,Verified
+7,Anita Das,anita.das@gmail.com,+91 97061 78007,anita.das107@gmail.com,107,ASM-BAR-2024-0107,Narayan Das,Barpeta,Sarthebari,Kayakuchi,KP-64,1B-4K-8L,Residential,Verified
+8,Manoj Kalita,manoj.kalita@gmail.com,+91 98641 89008,manoj.kalita108@gmail.com,108,ASM-NAL-2024-0108,Ramesh Kalita,Nalbari,Nalbari,Barkhetri,KP-68,3B-2K-4L,Agricultural,Verified
+9,Deepak Sharma,deepak.sharma@assam.gov.in,+91 99541 90009,deepak.sharma109@gmail.com,109,ASM-KAM-2024-0109,Mahesh Sharma,Kamrup Rural,Rangia,Changsari,KP-71,1B-3K-7L,Residential,Verified
+10,Anup Das,anup.das@gmail.com,+91 98591 01010,anup.das110@gmail.com,110,ASM-KAM-2024-0110,Bhaskar Das,Kamrup Rural,Rangia,Kamalpur,KP-74,2B-1K-9L,Agricultural,Verified
+11,Purnima Boro,purnima.boro@gmail.com,+91 94352 12011,purnima.boro111@gmail.com,111,ASM-BAK-2024-0111,Lal Boro,Baksa,Mushalpur,Barama,KP-79,2B-4K-2L,Agricultural,Verified
+12,Ranjit Daimary,ranjit.daimary@assam.gov.in,+91 97062 23012,ranjit.daimary112@gmail.com,112,ASM-UDL-2024-0112,Phanindra Daimary,Udalguri,Tangla,Harisinga,KP-82,4B-0K-6L,Agricultural,Verified
+13,Bikash Brahma,bikash.brahma@gmail.com,+91 98642 34013,bikash.brahma113@gmail.com,113,ASM-KOK-2024-0113,Gobinda Brahma,Kokrajhar,Gossaigaon,Bidyapur,KP-85,1B-2K-10L,Residential,Verified
+14,Malati Boro,malati.boro@gmail.com,+91 99542 45014,malati.boro114@gmail.com,114,ASM-KOK-2024-0114,Surendra Boro,Kokrajhar,Kokrajhar,Dotma,KP-89,2B-3K-5L,Agricultural,Verified
+15,Jayanta Das,jayanta.das@assam.gov.in,+91 98592 56015,jayanta.das115@gmail.com,115,ASM-BAR-2024-0115,Binod Das,Barpeta,Chenga,Chenga Gaon,KP-93,1B-0K-9L,Agricultural,Verified
+16,Kamal Kalita,kamal.kalita@gmail.com,+91 94353 67016,kamal.kalita116@gmail.com,116,ASM-NAL-2024-0116,Pradip Kalita,Nalbari,Tihu,Barbhag,KP-97,2B-2K-3L,Residential,Verified
+17,Geeta Devi,geeta.devi@gmail.com,+91 97063 78017,geeta.devi117@gmail.com,117,ASM-KAM-2024-0117,Ram Prasad Devi,Kamrup Rural,Azara,Palashbari,KP-101,1B-3K-4L,Residential,Verified
+18,Narayan Boro,narayan.boro@assam.gov.in,+91 98643 89018,narayan.boro118@gmail.com,118,ASM-BAK-2024-0118,Jogesh Boro,Baksa,Goreswar,No.1 Goreswar,KP-105,3B-1K-8L,Agricultural,Verified
+19,Manju Basumatary,manju.basumatary@gmail.com,+91 99543 90019,manju.basumatary119@gmail.com,119,ASM-TAM-2024-0119,Hari Basumatary,Tamulpur,Gobardhana,Kalipur,KP-108,2B-0K-11L,Agricultural,Verified
+20,Dilip Daimary,dilip.daimary@assam.gov.in,+91 98593 01020,dilip.daimary120@gmail.com,120,ASM-UDL-2024-0120,Madan Daimary,Udalguri,Kalaigaon,Rowta,KP-112,1B-4K-6L,Agricultural,Verified
+21,Bhaskar Jyoti Sarma,bhaskar.sarma@assam.gov.in,+91 94354 12021,bhaskar.sarma121@gmail.com,121,ASM-KMM-2024-0121,Dhirendra Sarma,Kamrup Metro,Dispur,Kahilipara,KP-116,2B-2K-5L,Residential,Verified
+22,Jonali Baruah,jonali.baruah@gmail.com,+91 97064 23022,jonali.baruah122@gmail.com,122,ASM-JOR-2024-0122,Nagen Baruah,Jorhat,Jorhat West,Titabar,KP-119,1B-1K-9L,Residential,Verified
+23,Dhiren Saikia,dhiren.saikia@assam.gov.in,+91 98644 34023,dhiren.saikia123@gmail.com,123,ASM-NAG-2024-0123,Bhuban Saikia,Nagaon,Kaliabor,Silghat,KP-124,3B-0K-7L,Agricultural,Verified
+24,Rupali Gogoi,rupali.gogoi@gmail.com,+91 99544 45024,rupali.gogoi124@gmail.com,124,ASM-DIB-2024-0124,Hemanta Gogoi,Dibrugarh,Moran,Khowang,KP-128,2B-3K-2L,Agricultural,Verified
+25,Abhijit Sharma,abhijit.sharma@assam.gov.in,+91 98594 56025,abhijit.sharma125@gmail.com,125,ASM-KAM-2024-0125,Subhash Sharma,Kamrup Rural,North Guwahati,Amingaon,KP-132,1B-2K-8L,Residential,Verified
+26,Pranab Kumar Medhi,pranab.medhi@assam.gov.in,+91 94355 67026,pranab.medhi126@gmail.com,126,ASM-KMM-2024-0126,Gauri Medhi,Kamrup Metro,Guwahati,Panbazar,KP-136,1B-0K-5L,Commercial,Verified
+27,Babul Sonowal,babul.sonowal@gmail.com,+91 97065 78027,babul.sonowal127@gmail.com,127,ASM-DIB-2024-0127,Khageshwar Sonowal,Dibrugarh,Chabua,Chabua Gaon,KP-139,2B-4K-0L,Agricultural,Verified
+28,Nabajit Kakati,nabajit.kakati@gmail.com,+91 98645 89028,nabajit.kakati128@gmail.com,128,ASM-BAR-2024-0128,Indreswar Kakati,Barpeta,Barpeta,Barpeta Road,KP-143,1B-3K-2L,Commercial,Verified
+29,Nibaran Hazarika,nibaran.hazarika@assam.gov.in,+91 99545 90029,nibaran.hazarika129@gmail.com,129,ASM-SON-2024-0129,Padma Hazarika,Sonitpur,Tezpur,Dhekiajuli,KP-147,3B-1K-4L,Agricultural,Verified
+30,Raktim Boro,raktim.boro@gmail.com,+91 98595 01030,raktim.boro130@gmail.com,130,ASM-KOK-2024-0130,Jadav Boro,Kokrajhar,Kokrajhar,Basukhat,KP-151,1B-1K-8L,Agricultural,Verified
+31,Suresh Basumatary,suresh.basumatary@gmail.com,+91 94356 12031,suresh.basumatary101@gmail.com,101,ASM-BAK-2024-0131,Mohan Basumatary,Baksa,Tamulpur,Barbari,KP-45,5B-0K-0L,Agricultural,Conflict
+32,Rajen Boro,rajen.boro@gmail.com,+91 97066 23032,rajen.boro102@gmail.com,102,ASM-BAK-2024-0132,Maniram Boro,Baksa,Salbari,Khairbari,KP-46,1B-3K-10L,Residential,Conflict
+33,Hemanta Das,hemanta.das@gmail.com,+91 98646 34033,hemanta.das106@gmail.com,106,ASM-BAR-2024-0133,Harendra Das,Barpeta,Barpeta,Howly,KP-61,3B-2K-5L,Agricultural,Conflict
+34,Rakesh Kalita,rakesh.kalita@gmail.com,+91 99546 45034,rakesh.kalita108@gmail.com,108,ASM-NAL-2024-0134,Ramesh Kalita,Nalbari,Nalbari,Barkhetri,KP-68,1B-0K-4L,Agricultural,Conflict
+35,Maya Boro,maya.boro@gmail.com,+91 98596 56035,maya.boro114@gmail.com,114,ASM-KOK-2024-0135,Lal Boro,Kokrajhar,Kokrajhar,Dotma,KP-89,4B-1K-2L,Agricultural,Conflict
+36,Dipen Rabha,dipen.rabha@assam.gov.in,+91 94357 67036,dipen.rabha131@gmail.com,131,ASM-GOA-2024-0136,Bhubeneswar Rabha,Goalpara,Dudhnai,Resubelpara,KP-155,2B-0K-10L,Agricultural,Verified
+37,Mridula Chetia,mridula.chetia@gmail.com,+91 97067 78037,mridula.chetia132@gmail.com,132,ASM-SIV-2024-0137,Mukund Chetia,Sivasagar,Nazira,Gargaon,KP-158,1B-4K-3L,Residential,Verified
+38,Utpal Deka,utpal.deka@assam.gov.in,+91 98647 89038,utpal.deka133@gmail.com,133,ASM-DAR-2024-0138,Khagen Deka,Darrang,Mangaldai,Kharupetia,KP-162,2B-2K-9L,Agricultural,Verified
+39,Pranati Bora,pranati.bora@gmail.com,+91 99547 90039,pranati.bora134@gmail.com,134,ASM-GOL-2024-0139,Bhaben Bora,Golaghat,Bokakhat,Kaziranga,KP-166,1B-0K-5L,Residential,Verified
+40,Kalyan Dutta,kalyan.dutta@gmail.com,+91 98597 01040,kalyan.dutta135@gmail.com,135,ASM-TIN-2024-0140,Prafulla Dutta,Tinsukia,Digboi,Margherita,KP-170,3B-1K-2L,Commercial,Verified
+41,Tridib Goswami,tridib.goswami@assam.gov.in,+91 94358 12041,tridib.goswami136@gmail.com,136,ASM-CAC-2024-0141,Devendra Goswami,Cachar,Silchar,Sonai,KP-174,2B-1K-4L,Residential,Verified
+42,Ratul Barman,ratul.barman@gmail.com,+91 97068 23042,ratul.barman137@gmail.com,137,ASM-NAL-2024-0142,Birendra Barman,Nalbari,Barkshetri,Mukalmua,KP-178,1B-3K-5L,Agricultural,Verified
+43,Hitesh Nath,hitesh.nath@assam.gov.in,+91 98648 34043,hitesh.nath138@gmail.com,138,ASM-DAR-2024-0143,Nagen Nath,Darrang,Sipajhar,Patharughat,KP-182,2B-0K-8L,Agricultural,Verified
+44,Pinki Begum,pinki.begum@gmail.com,+91 99548 45044,pinki.begum139@gmail.com,139,ASM-KAM-2024-0144,Abdul Mazid,Kamrup Rural,Hajo,Sualkuchi,KP-186,1B-2K-3L,Commercial,Verified
+45,Jiten Choudhury,jiten.choudhury@assam.gov.in,+91 98598 56045,jiten.choudhury140@gmail.com,140,ASM-BON-2024-0145,Dharanidhar Choudhury,Bongaigaon,Boitamari,Abhayapuri,KP-190,3B-2K-1L,Agricultural,Verified
+46,Unknown Owner,unknown@domain.com,+91 94359 67046,unknown141@gmail.com,141,ASM-BAK-2024-0146,Unknown,Baksa,Mushalpur,Barama,KP-177,2B-2K-4L,Agricultural,Needs Review
+47,Deepak Sharma,deepak.invalid@gmail.com,+91 97069 78047,deepak.invalid145@gmail.com,145,ASM-KAM-2024-0147,Mahesh Sharma,Kamrup Rural,Rangia,Changsari,KP-192,INVALID,Residential,Needs Review
+48,Biren Brahma,biren.brahma@gmail.com,+91 98649 89048,biren.brahma146@gmail.com,146,ASM-KOK-2024-0148,Gobinda Brahma,Kokrajhar,Gossaigaon,Serfanguri,KP-195,2B-1K-6L,Agricultural,Needs Review
+49,Hari Daimary,hari.daimary@gmail.com,+91 99549 90049,hari.daimary151@gmail.com,151,ASM-UDL-2024-0149,Gopal Daimary,Udalguri,Khoirabari,Bhairabkunda,KP-215,6B-0K-0L,Agricultural,Conflict
+50,Mina Boro,mina.boro.conflict@gmail.com,+91 98599 01050,mina.boro152@gmail.com,152,ASM-KOK-2024-0150,Ranjit Boro,Kokrajhar,Gossaigaon,Serfanguri,KP-218,1B-1K-12L,Residential,Conflict
+51,Anup Das,anup.das.conflict@gmail.com,+91 94350 11051,anup.das153@gmail.com,153,ASM-KAM-2024-0151,Bhaskar Das,Kamrup Rural,Rangia,Kamalpur,KP-222,7B-2K-0L,Agricultural,Conflict
+52,Himanta Kalita,himanta.kalita@assam.gov.in,+91 97060 22052,himanta.kalita154@gmail.com,154,ASM-KMM-2024-0152,Deben Kalita,Kamrup Metro,Dispur,Basistha,KP-226,1B-3K-4L,Residential,Verified
+53,Surajit Baruah,surajit.baruah@gmail.com,+91 98640 33053,surajit.baruah155@gmail.com,155,ASM-JOR-2024-0153,Niranjan Baruah,Jorhat,Jorhat East,Teok,KP-230,2B-1K-8L,Agricultural,Verified
+54,Chayanika Saikia,chayanika.saikia@assam.gov.in,+91 99540 44054,chayanika.saikia156@gmail.com,156,ASM-NAG-2024-0154,Prabin Saikia,Nagaon,Raha,Chaparmukh,KP-234,1B-0K-11L,Residential,Verified
+55,Nilav Hazarika,nilav.hazarika@gmail.com,+91 98590 55055,nilav.hazarika157@gmail.com,157,ASM-SON-2024-0155,Sailen Hazarika,Sonitpur,Tezpur,Biswanath,KP-238,3B-0K-7L,Agricultural,Verified
+56,Bikramjit Boro,bikramjit.boro@assam.gov.in,+91 94351 66056,bikramjit.boro158@gmail.com,158,ASM-BAK-2024-0156,Kandarpa Boro,Baksa,Tamulpur,Kachubari,KP-242,2B-3K-2L,Agricultural,Verified
+57,Sangita Das,sangita.das@gmail.com,+91 97061 77057,sangita.das159@gmail.com,159,ASM-BAR-2024-0157,Tarun Das,Barpeta,Sarthebari,Paka,KP-246,1B-2K-8L,Commercial,Verified
+58,Mukul Sonowal,mukul.sonowal@assam.gov.in,+91 98641 88058,mukul.sonowal160@gmail.com,160,ASM-DIB-2024-0158,Lalit Sonowal,Dibrugarh,Naharkatia,Joypur,KP-250,2B-1K-4L,Agricultural,Verified
+59,Barnali Medhi,barnali.medhi@gmail.com,+91 99541 99059,barnali.medhi161@gmail.com,161,ASM-KMM-2024-0159,Gajen Medhi,Kamrup Metro,Chandrapur,Chandrapur Gaon,KP-254,1B-4K-2L,Residential,Verified
+60,Pankaj Rabha,pankaj.rabha@assam.gov.in,+91 98592 00060,pankaj.rabha162@gmail.com,162,ASM-GOA-2024-0160,Subhash Rabha,Goalpara,Balijana,Agia,KP-258,3B-0K-0L,Agricultural,Verified

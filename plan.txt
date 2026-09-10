@@ -1,0 +1,26 @@
+intelligent-land-record/
+│
+├── app.py
+├── config.py
+├── database.py
+├── models.py
+├── ocr.py
+├── extractor.py
+├── validator.py
+├── requirements.txt
+├── README.md
+│
+├── uploads/
+│
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   ├── upload.html
+│   ├── records.html
+│   └── record.html
+│
+└── static/
+    ├── css/
+    │   └── style.css
+    └── js/
+        └── script.js

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header-row">
+    <h1 class="page-title">Land Parcel Allotment & Validity Verification</h1>
+    <div class="header-actions">
+        <a href="{{ url_for('upload_page') }}" class="btn-primary btn-small">+ Upload Scan Document</a>
+    </div>
+</div>
+
+<div class="card verification-banner">
+    <p>
+        <strong>Administrative Ground-Truth Allotment Engine:</strong>
+        Enter a Plot / Dag number and applicant details to verify validity and immediately detect whether the land is
+        <strong>free</strong>, <strong>already allotted to the same applicant</strong>, or <strong>allotted to another owner</strong> (double allotment/dispute risk).
+    </p>
+</div>
+
+<div class="details-grid">
+    <!-- Verification Query Form -->
+    <div class="card">
+        <h2>Verify Land Parcel</h2>
+        <form id="verifyAllotmentForm" class="standard-form">
+            <div class="form-group">
+                <label for="queryDagNumber">Plot / Dag Number *</label>
+                <input type="text" id="queryDagNumber" placeholder="e.g. 101, 102/Ka" required>
+                <small class="form-hint">Enter the cadastral Dag number.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="queryApplicantName">Applicant / Claimed Owner Name</label>
+                <input type="text" id="queryApplicantName" placeholder="e.g. Suresh Basumatary">
+                <small class="form-hint">The person claiming or applying for this plot.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="queryVillage">Village / Revenue Village</label>
+                <input type="text" id="queryVillage" placeholder="e.g. Barbari">
+            </div>
+
+            <div class="form-group">
+                <label for="queryDistrict">District (Assam)</label>
+                <input type="text" id="queryDistrict" placeholder="e.g. Baksa, Kamrup Metro">
+            </div>
+
+            <div class="form-group">
+                <label for="queryPattaNumber">Patta Number (Optional)</label>
+                <input type="text" id="queryPattaNumber" placeholder="e.g. KP-45">
+            </div>
+
+            <div class="form-group">
+                <label for="queryArea">Area (Assam standard B-K-L)</label>
+                <input type="text" id="queryArea" placeholder="e.g. 2B-1K-5L">
+            </div>
+
+            <button type="submit" class="btn-primary" id="btnVerifyAllotment">Check Allotment & Validity</button>
+        </form>
+    </div>
+
+    <!-- Verification Results View -->
+    <div class="card">
+        <h2>Comparison & Allotment Result</h2>
+        <div id="allotmentInitialPrompt" class="empty-state-box">
+            <p>Enter parcel details on the left and click <strong>Check Allotment & Validity</strong> to run the comparison engine.</p>
+        </div>
+
+        <div id="allotmentResultsBox" class="hidden">
+            <!-- Verdict Banner -->
+            <div id="verdictBanner" class="verdict-banner">
+                <h3 id="verdictTitle">Status</h3>
+                <p id="verdictMessage"></p>
+            </div>
+
+            <!-- Validity Check Box -->
+            <div class="validity-box">
+                <h4>Cadastral & Data Validity:</h4>
+                <div id="validityStatusText"></div>
+                <ul id="validityIssuesList" class="notes-list"></ul>
+            </div>
+
+            <!-- Conflicting / Existing Allotment Details -->
+            <div id="existingRecordSection" class="existing-record-section hidden">
+                <hr>
+                <h4>Existing Registry Record:</h4>
+                <div class="details-mini-grid" id="existingRecordDetails"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

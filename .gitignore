@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual Environment (venv folders in project root)
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+venv/
+env/
+.env/
+.venv/
+
+# Database (will be auto-created on deploy)
+*.db
+*.sqlite
+
+# Uploads (user-uploaded files, ephemeral)
+uploads/*
+!uploads/.gitkeep
+
+# Pytest
+.pytest_cache/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Record Intelligence System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <h2>LAND RECORD AI</h2>
+                <p>Digitization & Validation</p>
+            </div>
+            <nav class="menu">
+                <a href="{{ url_for('index') }}" class="nav-item">Dashboard</a>
+                <a href="{{ url_for('upload_page') }}" class="nav-item">Upload Document</a>
+                <a href="{{ url_for('records_page') }}" class="nav-item">All Records</a>
+                <a href="{{ url_for('verify_page') }}" class="nav-item">Verify Allotment</a>
+            </nav>
+        </aside>
+        
+        <main class="content">
+            <header class="top-bar">
+                <div class="search-box">
+                    <input type="text" id="globalSearch" placeholder="Search Dag, Patta, Owner, Village..." onkeyup="handleSearch(event)">
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+            </header>
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

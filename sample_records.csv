@@ -1,0 +1,61 @@
+id,owner_name,father_name,district,circle,village,dag_number,patta_number,area,land_type,validation_score,status
+1,Ramesh Basumatary,Mohan Basumatary,Baksa,Tamulpur,Barbari,101,45,2B-1K-5L,Agricultural,97,Verified
+2,Suresh Boro,Maniram Boro,Baksa,Salbari,Khairbari,102,46,1B-3K-10L,Agricultural,95,Verified
+3,Haren Daimary,Gopal Daimary,Udalguri,Khoirabari,Bhairabkunda,103,51,3B-0K-8L,Agricultural,96,Verified
+4,Biren Basumatary,Dinesh Basumatary,Kokrajhar,Gossaigaon,Serfanguri,104,53,2B-2K-6L,Agricultural,94,Verified
+5,Mina Boro,Ranjit Boro,Kokrajhar,Kokrajhar,Dhaligaon,105,57,1B-1K-12L,Residential,93,Verified
+6,Pradip Das,Harendra Das,Barpeta,Barpeta,Howly,106,61,2B-0K-5L,Agricultural,98,Verified
+7,Anita Das,Narayan Das,Barpeta,Sarthebari,Kayakuchi,107,64,1B-4K-8L,Residential,96,Verified
+8,Manoj Kalita,Ramesh Kalita,Nalbari,Nalbari,Barkhetri,108,68,3B-2K-4L,Agricultural,95,Verified
+9,Deepak Sharma,Mahesh Sharma,Kamrup,Rangia,Changsari,109,71,1B-3K-7L,Residential,97,Verified
+10,Anup Das,Bhaskar Das,Kamrup,Rangia,Kamalpur,110,74,2B-1K-9L,Agricultural,94,Verified
+11,Purnima Boro,Lal Boro,Baksa,Mushalpur,Barama,111,79,2B-4K-2L,Agricultural,96,Verified
+12,Ranjit Daimary,Phanindra Daimary,Udalguri,Tangla,Harisinga,112,82,4B-0K-6L,Agricultural,98,Verified
+13,Bikash Brahma,Gobinda Brahma,Kokrajhar,Gossaigaon,Bidyapur,113,85,1B-2K-10L,Residential,92,Verified
+14,Malati Boro,Surendra Boro,Kokrajhar,Kokrajhar,Dotma,114,89,2B-3K-5L,Agricultural,95,Verified
+15,Jayanta Das,Binod Das,Barpeta,Chenga,Chenga Gaon,115,93,1B-0K-9L,Agricultural,97,Verified
+16,Kamal Kalita,Pradip Kalita,Nalbari,Tihu,Barbhag,116,97,2B-2K-3L,Residential,94,Verified
+17,Geeta Devi,Ram Prasad Devi,Kamrup,Azara,Palashbari,117,101,1B-3K-4L,Residential,96,Verified
+18,Narayan Boro,Jogesh Boro,Baksa,Goreswar,No.1 Goreswar,118,105,3B-1K-8L,Agricultural,95,Verified
+19,Manju Basumatary,Hari Basumatary,Tamulpur,Gobardhana,Kalipur,119,108,2B-0K-11L,Agricultural,93,Verified
+20,Dilip Daimary,Madan Daimary,Udalguri,Kalaigaon,Rowta,120,112,1B-4K-6L,Agricultural,98,Verified
+21,Sanjay Boro,Anil Boro,Baksa,Mushalpur,Salbari,121,116,2B-2K-5L,Agricultural,96,Verified
+22,Rupa Basumatary,Bhaban Basumatary,Kokrajhar,Kachugaon,Banargaon,122,119,1B-1K-9L,Residential,94,Verified
+23,Arjun Das,Ramesh Das,Barpeta,Barpeta,Sorbhog,123,124,3B-0K-7L,Agricultural,97,Verified
+24,Monika Kalita,Pranab Kalita,Nalbari,Nalbari,Banagram,124,128,2B-3K-2L,Agricultural,95,Verified
+25,Abhijit Sharma,Subhash Sharma,Kamrup,North Guwahati,Amingaon,125,132,1B-2K-8L,Residential,96,Verified
+26,Rahul Boro,Chandan Boro,Udalguri,Mangaldai,Harisinga,126,136,2B-1K-4L,Agricultural,92,Needs Review
+27,Sunita Das,Prakash Das,Barpeta,Bhawanipur,Pathsala,127,139,1B-3K-6L,Residential,91,Needs Review
+28,Prakash Basumatary,Ratan Basumatary,Baksa,Tamulpur,Darrangajuli,128,143,3B-2K-3L,Agricultural,89,Needs Review
+29,Bimal Daimary,Keshab Daimary,Udalguri,Khoirabari,Paneri,129,147,2B-4K-5L,Agricultural,88,Needs Review
+30,Anil Boro,Nagen Boro,Kokrajhar,Kokrajhar,Basukhat,130,151,1B-1K-8L,Agricultural,86,Needs Review
+31,Rekha Boro,Manik Boro,Baksa,Salbari,Kalbari,131,155,2B-0K-10L,Agricultural,84,Needs Review
+32,Harish Das,Ganesh Das,Barpeta,Sarthebari,Amrikhowa,132,158,1B-4K-3L,Residential,82,Needs Review
+33,Kamala Kalita,Rajendra Kalita,Nalbari,Tihu,Barama,133,162,2B-2K-9L,Agricultural,85,Needs Review
+34,Debajit Das,Narendra Das,Kamrup,Rangia,Pub Kamrup,134,166,1B-0K-5L,Residential,81,Needs Review
+35,Meena Basumatary,Biren Basumatary,Tamulpur,Goreswar,Khagrabari,135,170,3B-1K-2L,Agricultural,83,Needs Review
+36,Suresh Basumatary,Mohan Basumatary,Baksa,Tamulpur,Barbari,101,45,5B-0K-0L,Agricultural,55,Conflict
+37,Rajen Boro,Maniram Boro,Baksa,Salbari,Khairbari,102,46,1B-3K-10L,Residential,58,Conflict
+38,Hemanta Das,Harendra Das,Barpeta,Barpeta,Howly,106,61,3B-2K-5L,Agricultural,52,Conflict
+39,Rakesh Kalita,Ramesh Kalita,Nalbari,Nalbari,Barkhetri,108,68,1B-0K-4L,Agricultural,49,Conflict
+40,Maya Boro,Lal Boro,Kokrajhar,Kokrajhar,Dotma,114,89,4B-1K-2L,Agricultural,51,Conflict
+41,Unknown Owner,Unknown,Baksa,Mushalpur,Barama,141,177,2B-2K-4L,Agricultural,42,Needs Review
+42,Pradip Das,Harendra Das,Barpeta,Barpeta,Howly,142,181,,Agricultural,60,Needs Review
+43,Anita Das,Narayan Das,Barpeta,Sarthebari,Kayakuchi,143,184,1B-4K-8L,,65,Needs Review
+44,Manoj Kalita,Ramesh Kalita,Nalbari,Tihu,Barbhag,ABC144,188,2B-2K-3L,Agricultural,48,Needs Review
+45,Deepak Sharma,Mahesh Sharma,Kamrup,Rangia,Changsari,145,192,INVALID,Residential,45,Needs Review
+46,Biren Brahma,Gobinda Brahma,Kokrajhar,Gossaigaon,Serfanguri,146,,2B-1K-6L,Agricultural,62,Needs Review
+47,Purnima Boro,Lal Boro,Baksa,Mushalpur,Barama,147,199,2B-4K-2L,Agricultural,68,Needs Review
+48,Jayanta Das,Binod Das,Barpeta,Chenga,Chenga Gaon,148,203,2B-0K-9L,Agricultural,63,Needs Review
+49,Ramesh Basumatary,Mohan Basumatary,Baksa,Tamulpur,Barbari,149,207,2B-1K-5L,Agricultural,59,Conflict
+50,Suresh Boro,Maniram Boro,Baksa,Salbari,Khairbari,150,211,2B-0K-10L,Agricultural,57,Conflict
+51,Hari Daimary,Gopal Daimary,Udalguri,Khoirabari,Bhairabkunda,151,215,6B-0K-0L,Agricultural,54,Conflict
+52,Mina Boro,Ranjit Boro,Kokrajhar,Gossaigaon,Serfanguri,152,218,1B-1K-12L,Residential,61,Conflict
+53,Anup Das,Bhaskar Das,Kamrup,Rangia,Kamalpur,153,222,7B-2K-0L,Agricultural,50,Conflict
+54,Geeta Devi,Ram Prasad Devi,Kamrup,Azara,Palashbari,154,226,1B-3K-4L,Agricultural,64,Needs Review
+55,Narayan Boro,Jogesh Boro,Baksa,Goreswar,No.1 Goreswar,155,230,2B-1K-8L,Agricultural,67,Needs Review
+56,Manju Basumatary,Hari Basumatary,Tamulpur,Gobardhana,Kalipur,156,234,2B-0K-11L,Agricultural,70,Needs Review
+57,Arjun Das,Ramesh Das,Barpeta,Sorbhog,Barpeta Road,157,238,3B-0K-7L,Residential,79,Needs Review
+58,Monika Kalita,Pranab Kalita,Nalbari,Nalbari,Banagram,158,242,2B-3K-2L,Agricultural,73,Needs Review
+59,Abhijit Sharma,Subhash Sharma,Kamrup,North Guwahati,Amingaon,159,246,1B-2K-8L,Commercial,78,Needs Review
+60,Rahul Boro,Chandan Boro,Udalguri,Mangaldai,Harisinga,160,250,2B-1K-4L,Agricultural,76,Needs Review
