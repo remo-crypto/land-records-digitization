@@ -455,6 +455,19 @@ function closeModal(modalId) {
     if (modal) modal.classList.add("hidden");
 }
 
+// Close modal on backdrop click or Escape key
+document.addEventListener("click", (e) => {
+    if (e.target && e.target.classList.contains("modal")) {
+        e.target.classList.add("hidden");
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        document.querySelectorAll(".modal:not(.hidden)").forEach(m => m.classList.add("hidden"));
+    }
+});
+
 // --- Table Filtering & Search ---
 function filterTable(status) {
     document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));

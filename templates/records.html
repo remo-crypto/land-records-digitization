@@ -75,5 +75,149 @@
     {% endif %}
 </div>
 
+<!-- Modal: Edit Land Record -->
+<div id="editModal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Land Record #<span id="editRecordIdDisplay"></span></h3>
+            <button type="button" class="modal-close" onclick="closeModal('editModal')">&times;</button>
+        </div>
+        <form id="editRecordForm">
+            <input type="hidden" id="editRecordId">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="editOwnerName">Owner Name *</label>
+                    <input type="text" id="editOwnerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editFatherName">Father's Name</label>
+                    <input type="text" id="editFatherName">
+                </div>
+                <div class="form-group">
+                    <label for="editDagNumber">Plot / Dag Number *</label>
+                    <input type="text" id="editDagNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPattaNumber">Patta Number</label>
+                    <input type="text" id="editPattaNumber">
+                </div>
+                <div class="form-group">
+                    <label for="editDistrict">District (Assam)</label>
+                    <input type="text" id="editDistrict">
+                </div>
+                <div class="form-group">
+                    <label for="editCircle">Revenue Circle</label>
+                    <input type="text" id="editCircle">
+                </div>
+                <div class="form-group">
+                    <label for="editVillage">Village</label>
+                    <input type="text" id="editVillage">
+                </div>
+                <div class="form-group">
+                    <label for="editArea">Area</label>
+                    <input type="text" id="editArea">
+                </div>
+                <div class="form-group">
+                    <label for="editLandType">Land Type</label>
+                    <select id="editLandType">
+                        <option value="Agricultural">Agricultural</option>
+                        <option value="Residential">Residential</option>
+                        <option value="Commercial">Commercial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Verification Status</label>
+                    <select id="editStatus">
+                        <option value="Verified">Verified</option>
+                        <option value="Needs Review">Needs Review</option>
+                        <option value="Conflict">Conflict</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editContactNo">Contact No</label>
+                    <input type="text" id="editContactNo">
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email / Gmail</label>
+                    <input type="email" id="editEmail">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeModal('editModal')">Cancel</button>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Add Land Record Manually -->
+<div id="addModal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add Land Record to Registry</h3>
+            <button type="button" class="modal-close" onclick="closeModal('addModal')">&times;</button>
+        </div>
+        <form id="addRecordForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="addOwnerName">Owner Name *</label>
+                    <input type="text" id="addOwnerName" required placeholder="e.g. Ramesh Basumatary">
+                </div>
+                <div class="form-group">
+                    <label for="addFatherName">Father's Name</label>
+                    <input type="text" id="addFatherName" placeholder="e.g. Mohan Basumatary">
+                </div>
+                <div class="form-group">
+                    <label for="addDagNumber">Plot / Dag Number *</label>
+                    <input type="text" id="addDagNumber" required placeholder="e.g. 101 or 105/Ka">
+                </div>
+                <div class="form-group">
+                    <label for="addPattaNumber">Patta Number</label>
+                    <input type="text" id="addPattaNumber" placeholder="e.g. KP-45">
+                </div>
+                <div class="form-group">
+                    <label for="addDistrict">District (Assam)</label>
+                    <input type="text" id="addDistrict" placeholder="e.g. Baksa, Kokrajhar">
+                </div>
+                <div class="form-group">
+                    <label for="addCircle">Revenue Circle</label>
+                    <input type="text" id="addCircle" placeholder="e.g. Tamulpur">
+                </div>
+                <div class="form-group">
+                    <label for="addVillage">Village</label>
+                    <input type="text" id="addVillage" placeholder="e.g. Barbari">
+                </div>
+                <div class="form-group">
+                    <label for="addArea">Area (B-K-L)</label>
+                    <input type="text" id="addArea" placeholder="e.g. 2B-1K-5L">
+                </div>
+                <div class="form-group">
+                    <label for="addLandType">Land Type</label>
+                    <select id="addLandType">
+                        <option value="Agricultural">Agricultural</option>
+                        <option value="Residential">Residential</option>
+                        <option value="Commercial">Commercial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="addContactNo">Contact No</label>
+                    <input type="text" id="addContactNo" placeholder="e.g. +91 98640 12001">
+                </div>
+                <div class="form-group">
+                    <label for="addEmail">Email / Gmail</label>
+                    <input type="email" id="addEmail" placeholder="e.g. owner@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="addUniqueId">Unique Cadastral ID</label>
+                    <input type="text" id="addUniqueId" placeholder="e.g. ASM-BAK-2024-0101">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeModal('addModal')">Cancel</button>
+                <button type="submit" class="btn-primary">Add Record</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
