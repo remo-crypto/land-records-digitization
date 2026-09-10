@@ -1,5 +1,5 @@
+from datetime import datetime, timezone
 from database import db
-from datetime import datetime
 
 class LandRecord(db.Model):
     __tablename__ = 'land_records'
@@ -26,7 +26,10 @@ class LandRecord(db.Model):
     status = db.Column(db.String(50), default='Pending')
     validation_notes = db.Column(db.Text, nullable=True) # Stores warning/conflict JSON/text
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def to_dict(self):
         return {

@@ -4,18 +4,15 @@ import numpy as np
 from PIL import Image
 import pytesseract
 
-# Safe Windows fallback: if the user installed Tesseract in the usual location,
-# point pytesseract there explicitly. Otherwise, let the executable remain on PATH.
-_tesseract_cmd = os.environ.get('TESSERACT_CMD')
-if not _tesseract_cmd:
-    _tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
-# Only set the command if the file exists. This avoids breaking Linux/macOS users.
-if _tesseract_cmd and os.path.exists(_tesseract_cmd):
-    pytesseract.pytesseract.tesseract_cmd = _tesseract_cmd
-elif _tesseract_cmd:
-    # Respect the environment variable when it is configured, but do not force an invalid path.
-    pytesseract.pytesseract.tesseract_cmd = _tesseract_cmd
+# Safe Windows fallback: if the user configured TESSERACT_CMD or installed in default Windows path,
+# use it. Otherwise, let pytesseract look for 'tesseract' on the system PATH.
+_env_tesseract = os.environ.get('TESSERACT_CMD')
+if _env_tesseract:
+    pytesseract.pytesseract.tesseract_cmd = _env_tesseract
+elif os.name == 'nt':
+    _default_win_path = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    if os.path.exists(_default_win_path):
+        pytesseract.pytesseract.tesseract_cmd = _default_win_path
 
 def preprocess_image(image_path):
     """Applies OpenCV grayscale and thresholding to improve OCR reading."""
@@ -33,10 +30,17 @@ def preprocess_image(image_path):
     return thresh
 
 def extract_text_from_file(file_path):
-    """Processes images or PDFs and extracts text using Tesseract."""
+    """Processes images, PDFs or text documents and extracts text."""
     ext = os.path.splitext(file_path)[1].lower()
     
-    if ext == '.pdf':
+    if ext == '.txt':
+        try:
+            with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
+                return f.read().strip()
+        except Exception as e:
+            raise RuntimeError(f"Could not read text document: {str(e)}")
+
+    elif ext == '.pdf':
         try:
             from pdf2image import convert_from_path
             pages = convert_from_path(file_path)
@@ -46,7 +50,7 @@ def extract_text_from_file(file_path):
                 extracted_text += text + "\n"
             return extracted_text.strip()
         except Exception as e:
-            raise RuntimeError(f"PDF OCR failed. Ensure pdf2image and poppler are installed. Error: {str(e)}")
+            raise RuntimeError(f"PDF OCR failed. Ensure pdf2image, poppler, and tesseract are installed. Error: {str(e)}")
             
     elif ext in ['.jpg', '.jpeg', '.png']:
         try:

@@ -2,10 +2,7 @@ services:
   - type: web
     name: sih-land-records
     runtime: python
-    buildCommand: |
-      apt-get update && apt-get install -y tesseract-ocr poppler-utils libgl1-mesa-glx libglib2.0-0 libjpeg-dev zlib1g-dev libpng-dev libfreetype6-dev
-      pip install --upgrade pip
-      pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: gunicorn wsgi:application
     envVars:
       - key: SECRET_KEY

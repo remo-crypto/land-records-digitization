@@ -27,8 +27,6 @@ def extract_fields_from_text(text):
         "father_name": r'(?:Father\'?s?\s*Name|Father)\s*[:\-]\s*(.*)',
         "village": r'(?:Village|Mauza)\s*[:\-]\s*(.*)',
         "district": r'(?:District|Dist)\s*[:\-]\s*(.*)',
-        "circle": r'(?:Circle|Revenue\s*Circle|Sub\s*Division\s*[:\-]\s*(.*)',
-        "district": r'(?:District|Dist)\s*[:\-]\s*(.*)',
         "circle": r'(?:Circle|Revenue\s*Circle|Sub\s*Division)\s*[:\-]\s*(.*)',
         "dag_number": r'(?:Dag\s*No\.?|Dag\s*Number|Dag)\s*[:\-]\s*([A-Za-z0-9/\-]+)',
         "patta_number": r'(?:Patta\s*No\.?|Patta\s*Number|Patta)\s*[:\-]\s*([A-Za-z0-9/\-]+)',

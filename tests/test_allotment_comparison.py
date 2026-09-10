@@ -30,8 +30,8 @@ def test_single_deletion_only(tmp_path):
         assert data['deleted_id'] == r1_id
 
         # Verify only r1 is deleted, r2 is strictly preserved
-        assert LandRecord.query.get(r1_id) is None
-        assert LandRecord.query.get(r2_id) is not None
+        assert db.session.get(LandRecord, r1_id) is None
+        assert db.session.get(LandRecord, r2_id) is not None
         assert LandRecord.query.count() == 1
 
 

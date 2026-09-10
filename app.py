@@ -85,7 +85,7 @@ def create_app(config_overrides=None):
 
     @app.route('/records/<int:record_id>')
     def record_detail(record_id):
-        record = LandRecord.query.get_or_404(record_id)
+        record = db.get_or_404(LandRecord, record_id)
         notes = json.loads(record.validation_notes) if record.validation_notes else []
         return render_template('record.html', record=record, notes=notes)
 
@@ -131,7 +131,7 @@ def create_app(config_overrides=None):
 
     @app.route('/api/process/<int:record_id>', methods=['POST'])
     def process_record(record_id):
-        record = LandRecord.query.get_or_404(record_id)
+        record = db.get_or_404(LandRecord, record_id)
         full_path = os.path.join(app.root_path, record.document_path)
 
         try:
@@ -163,7 +163,7 @@ def create_app(config_overrides=None):
 
     @app.route('/api/validate/<int:record_id>', methods=['POST'])
     def validate_record(record_id):
-        record = LandRecord.query.get_or_404(record_id)
+        record = db.get_or_404(LandRecord, record_id)
 
         score, status, notes = validate_land_record(record)
 
@@ -183,7 +183,7 @@ def create_app(config_overrides=None):
 
     @app.route('/api/compare/<int:record_id>', methods=['POST'])
     def compare_record(record_id):
-        record = LandRecord.query.get_or_404(record_id)
+        record = db.get_or_404(LandRecord, record_id)
         result = compare_land_record(record)
         return jsonify(result)
 
@@ -194,7 +194,7 @@ def create_app(config_overrides=None):
 
     @app.route('/api/records/<int:record_id>', methods=['GET'])
     def get_record(record_id):
-        record = LandRecord.query.get_or_404(record_id)
+        record = db.get_or_404(LandRecord, record_id)
         return jsonify(record.to_dict())
 
     @app.route('/api/search', methods=['GET'])
@@ -217,7 +217,7 @@ def create_app(config_overrides=None):
     @app.route('/api/records/<int:record_id>', methods=['DELETE'])
     def delete_record(record_id):
         """Delete exactly one land record at a time, cleaning up its uploaded file."""
-        record = LandRecord.query.get_or_404(record_id)
+        record = db.get_or_404(LandRecord, record_id)
         document_path = record.document_path
         deleted_id = record.id
         db.session.delete(record)
@@ -238,7 +238,7 @@ def create_app(config_overrides=None):
     @app.route('/api/records/<int:record_id>', methods=['PUT', 'POST'])
     def update_record(record_id):
         """Update an existing land record and re-run validation checks."""
-        record = LandRecord.query.get_or_404(record_id)
+        record = db.get_or_404(LandRecord, record_id)
         data = request.get_json() or {}
 
         editable_fields = [
