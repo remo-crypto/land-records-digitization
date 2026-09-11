@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="map-studio-container">
+    <!-- Map Studio Header -->
+    <div class="map-studio-header">
+        <div class="map-header-left">
+            <h1 class="page-title">2D Map Studio & Land Marking</h1>
+            <div class="map-meta-tags">
+                <span class="badge verified">🛰️ Google Satellite & Hybrid Active</span>
+                <span class="info-tag">EPSG:32645 (UTM 45N)</span>
+                <span class="info-tag" id="parcelCounterBadge">Loading Cadastral Layer...</span>
+            </div>
+        </div>
+
+        <div class="map-header-right">
+            <!-- Search / Fly-To Plot -->
+            <div class="map-search-bar">
+                <input type="text" id="mapSearchInput" placeholder="Locate Dag No, Owner, or Village..." autocomplete="off">
+                <button type="button" id="btnMapSearch" class="btn-primary btn-small">🔍 Find Plot</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Studio Workspace (Toolbar + Canvas + Inspector Sidebar) -->
+    <div class="map-studio-workspace">
+        <!-- Interactive 2D Map Canvas -->
+        <div class="map-canvas-wrapper">
+            <!-- Floating Land Marking Toolbar -->
+            <div class="map-toolbar-card">
+                <div class="toolbar-group">
+                    <span class="toolbar-label">LAND MARKING:</span>
+                    <button type="button" class="btn-tool" id="toolPolygon" title="Click points on map to mark parcel boundary corners">
+                        <span class="tool-icon">📐</span> Mark Boundary (Polygon)
+                    </button>
+                    <button type="button" class="btn-tool" id="toolPin" title="Drop a single land marking pin">
+                        <span class="tool-icon">📍</span> Mark Pin
+                    </button>
+                    <button type="button" class="btn-tool" id="toolMeasure" title="Measure distance between boundary pillars">
+                        <span class="tool-icon">📏</span> Measure Distance
+                    </button>
+                </div>
+
+                <div class="toolbar-separator"></div>
+
+                <div class="toolbar-group">
+                    <button type="button" class="btn-tool btn-danger-tool" id="toolClear" title="Clear current marked shape" disabled>
+                        ✕ Clear Marked
+                    </button>
+                    <button type="button" class="btn-tool btn-success-tool" id="toolSaveLand" title="Save marked boundary to land registry" disabled>
+                        💾 Save Marked Land
+                    </button>
+                </div>
+
+                <div class="toolbar-separator"></div>
+
+                <!-- Layer Switcher -->
+                <div class="toolbar-group">
+                    <span class="toolbar-label">BASEMAP:</span>
+                    <select id="mapLayerSelector" class="map-layer-dropdown">
+                        <option value="google_hybrid" selected>🛰️ Google Hybrid (Satellite + Roads)</option>
+                        <option value="google_satellite">🛰️ Google Satellite (Pure)</option>
+                        <option value="google_streets">🏙️ Google Streets</option>
+                        <option value="google_terrain">⛰️ Google Terrain</option>
+                        <option value="osm">🗺️ OpenStreetMap</option>
+                        <option value="esri">🌐 Esri World Imagery</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- The Leaflet Map Canvas -->
+            <div id="geoharmonizeMap" class="map-viewport"></div>
+
+            <!-- Map Status Overlay Floating Bar -->
+            <div class="map-status-overlay">
+                <div id="mapCoordinatesDisplay">Latitude: 26.144500 • Longitude: 91.736200 • Zoom: 14</div>
+                <div id="mapConflictAlert" class="map-conflict-banner hidden">
+                    🚨 <strong>Spatial Conflict:</strong> Marked boundary overlaps with existing Cadastral Parcel!
+                </div>
+            </div>
+        </div>
+
+        <!-- Land Inspector & Measurement Panel -->
+        <aside class="map-inspector-sidebar">
+            <div class="inspector-header">
+                <h3>Cadastral Land Inspector</h3>
+                <span class="badge pending" id="drawingStatusBadge">Idle</span>
+            </div>
+
+            <!-- Live Marked Land Metrics -->
+            <div class="inspector-section">
+                <h4 class="inspector-subtitle">CURRENT MARKED PARCEL</h4>
+                <div class="metrics-mini-grid">
+                    <div class="metric-box">
+                        <small>ASSAM B-K-L AREA</small>
+                        <div class="metric-val" id="dispBKL">0B - 0K - 0L</div>
+                    </div>
+                    <div class="metric-box">
+                        <small>METRIC AREA</small>
+                        <div class="metric-val" id="dispSqM">0.00 m²</div>
+                    </div>
+                    <div class="metric-box">
+                        <small>PERIMETER LENGTH</small>
+                        <div class="metric-val" id="dispPerimeter">0.00 m</div>
+                    </div>
+                    <div class="metric-box">
+                        <small>BOUNDARY PILLARS</small>
+                        <div class="metric-val" id="dispVertices">0 points</div>
+                    </div>
+                </div>
+
+                <div id="drawingInstruction" class="inspector-hint">
+                    💡 Click <strong>Mark Boundary</strong> above, then click corners on the satellite map to draw a plot polygon. Double-click or click the first point to finish.
+                </div>
+
+                <div id="actionSaveMarkedContainer" class="hidden" style="margin-top: 12px;">
+                    <button type="button" class="btn-primary btn-block" id="btnOpenSaveModal">
+                        💾 Register Marked Land Parcel
+                    </button>
+                    <button type="button" class="btn-secondary btn-block btn-small" id="btnExportGeoJSON" style="margin-top: 6px;">
+                        📥 Export Boundary GeoJSON
+                    </button>
+                </div>
+            </div>
+
+            <hr class="inspector-divider">
+
+            <!-- Selected Existing Parcel Details -->
+            <div class="inspector-section" id="selectedParcelSection">
+                <h4 class="inspector-subtitle">SELECTED REGISTRY PARCEL</h4>
+                <div id="selectedParcelPrompt" class="empty-inspector-box">
+                    <p>Click any cadastral parcel polygon on the map to inspect ownership, Dag/Patta, and conflict status.</p>
+                </div>
+
+                <div id="selectedParcelDetails" class="hidden">
+                    <div class="parcel-badge-row">
+                        <span id="inspStatusBadge" class="badge verified">Verified</span>
+                        <code id="inspUniqueId" class="unique-id-badge">ASM-0001</code>
+                    </div>
+
+                    <div class="inspector-field-list">
+                        <div class="insp-field">
+                            <label>Plot / Dag No:</label>
+                            <span id="inspDag"><strong>N/A</strong></span>
+                        </div>
+                        <div class="insp-field">
+                            <label>Patta No:</label>
+                            <span id="inspPatta">N/A</span>
+                        </div>
+                        <div class="insp-field">
+                            <label>Registered Owner:</label>
+                            <span id="inspOwner" class="owner-name">N/A</span>
+                        </div>
+                        <div class="insp-field">
+                            <label>Father's Name:</label>
+                            <span id="inspFather">N/A</span>
+                        </div>
+                        <div class="insp-field">
+                            <label>Location:</label>
+                            <span id="inspLocation">N/A</span>
+                        </div>
+                        <div class="insp-field">
+                            <label>Registered Area:</label>
+                            <span id="inspArea">N/A</span>
+                        </div>
+                        <div class="insp-field">
+                            <label>Land Classification:</label>
+                            <span id="inspLandType">N/A</span>
+                        </div>
+                        <div class="insp-field">
+                            <label>Validation Score:</label>
+                            <span id="inspScore"><strong>0%</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="inspector-actions">
+                        <a id="inspViewRecordBtn" href="#" class="btn-primary btn-small btn-block">View Full Record</a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="inspector-divider">
+
+            <!-- Cadastral Legend -->
+            <div class="inspector-section">
+                <h4 class="inspector-subtitle">CADASTRAL MAP LEGEND</h4>
+                <div class="legend-items">
+                    <div class="legend-row">
+                        <span class="legend-swatch swatch-verified"></span>
+                        <span>Harmonized / Verified Parcel</span>
+                    </div>
+                    <div class="legend-row">
+                        <span class="legend-swatch swatch-review"></span>
+                        <span>Needs Review / Pending Check</span>
+                    </div>
+                    <div class="legend-row">
+                        <span class="legend-swatch swatch-conflict"></span>
+                        <span>Spatial / Allotment Conflict</span>
+                    </div>
+                    <div class="legend-row">
+                        <span class="legend-swatch swatch-marked"></span>
+                        <span>Currently Marked Land Parcel</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Modal: Save Marked Land Parcel to Registry -->
+<div id="saveMarkedModal" class="modal hidden" style="display: none !important;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Register Marked 2D Land Parcel</h3>
+            <button type="button" class="modal-close" onclick="closeModal('saveMarkedModal')">&times;</button>
+        </div>
+        <form id="saveMarkedForm">
+            <div class="modal-notice">
+                📍 Coordinates and boundary polygon have been captured from your 2D Google Map marking session.
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="markedDagNumber">Plot / Dag Number *</label>
+                    <input type="text" id="markedDagNumber" placeholder="e.g. 108/Ka" required>
+                </div>
+                <div class="form-group">
+                    <label for="markedPattaNumber">Patta Number</label>
+                    <input type="text" id="markedPattaNumber" placeholder="e.g. KP-88">
+                </div>
+                <div class="form-group">
+                    <label for="markedOwnerName">Owner Name *</label>
+                    <input type="text" id="markedOwnerName" placeholder="e.g. Ramesh Kalita" required>
+                </div>
+                <div class="form-group">
+                    <label for="markedFatherName">Father's Name</label>
+                    <input type="text" id="markedFatherName" placeholder="e.g. Bipin Kalita">
+                </div>
+                <div class="form-group">
+                    <label for="markedDistrict">District (Assam) *</label>
+                    <input type="text" id="markedDistrict" value="Kamrup Metro" required>
+                </div>
+                <div class="form-group">
+                    <label for="markedCircle">Revenue Circle</label>
+                    <input type="text" id="markedCircle" value="Dispur">
+                </div>
+                <div class="form-group">
+                    <label for="markedVillage">Village / Ward *</label>
+                    <input type="text" id="markedVillage" value="Guwahati Sector 12" required>
+                </div>
+                <div class="form-group">
+                    <label for="markedArea">Calculated Area (Assam B-K-L)</label>
+                    <input type="text" id="markedArea" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="markedLandType">Land Classification</label>
+                    <select id="markedLandType">
+                        <option value="Residential" selected>Residential</option>
+                        <option value="Commercial">Commercial</option>
+                        <option value="Agricultural">Agricultural</option>
+                        <option value="Industrial">Industrial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="markedContactNo">Contact Number</label>
+                    <input type="text" id="markedContactNo" placeholder="+91 98640 55001">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeModal('saveMarkedModal')">Cancel</button>
+                <button type="submit" class="btn-primary" id="btnSubmitMarkedParcel">Save & Harmonize Parcel</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

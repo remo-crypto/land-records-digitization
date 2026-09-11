@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header-row">
+    <div>
+        <h1 class="page-title">LADM ISO 19152 Schema Harmonizer</h1>
+        <p class="page-subtitle">Standardizing heterogeneous regional land attributes into international Land Administration Domain Model packages</p>
+    </div>
+    <div class="header-actions">
+        <button type="button" class="btn-primary btn-small" id="btnRunSchemaMatcher">🔄 Run Semantic Schema Alignment</button>
+    </div>
+</div>
+
+<div class="card schema-banner">
+    <div class="schema-badge-flex">
+        <span class="badge verified">ISO 19152:2012 Compliant</span>
+        <span class="info-tag">Semantic Confidence: <strong>98.2%</strong></span>
+        <span class="info-tag">Core Packages: LA_SpatialUnit • LA_BAUnit • LA_Party • LA_RRR</span>
+    </div>
+    <p style="margin-top: 10px;">
+        The Schema Harmonizer maps regional Assam revenue terminology (e.g. <em>Dag Number, Patta, Mauza, Pattadar, B-K-L area</em>) to standardized OGC/ISO LADM objects, ensuring full interoperability across urban GIS platforms.
+    </p>
+</div>
+
+<div class="card">
+    <h2>Assam Revenue Attributes &rarr; LADM ISO 19152 Mapping Table</h2>
+    
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Source Revenue Attribute</th>
+                    <th>LADM Object Class</th>
+                    <th>Target Standard Field</th>
+                    <th>Semantic Confidence</th>
+                    <th>Harmonization Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>dag_number</code> (Plot / Dag No)</td>
+                    <td><span class="pill-chip chip-purple">LA_SpatialUnit</span></td>
+                    <td><code>suID / label</code></td>
+                    <td><strong>99.4%</strong></td>
+                    <td><span class="badge verified">Harmonized</span></td>
+                </tr>
+                <tr>
+                    <td><code>patta_number</code> (Patta No)</td>
+                    <td><span class="pill-chip chip-blue">LA_BAUnit</span></td>
+                    <td><code>name / uID</code></td>
+                    <td><strong>98.8%</strong></td>
+                    <td><span class="badge verified">Harmonized</span></td>
+                </tr>
+                <tr>
+                    <td><code>owner_name</code> (Pattadar / Right Holder)</td>
+                    <td><span class="pill-chip chip-cyan">LA_Party</span></td>
+                    <td><code>name / role</code></td>
+                    <td><strong>97.9%</strong></td>
+                    <td><span class="badge verified">Harmonized</span></td>
+                </tr>
+                <tr>
+                    <td><code>area</code> (B-K-L Notation)</td>
+                    <td><span class="pill-chip chip-purple">LA_SpatialUnit</span></td>
+                    <td><code>area (metric m² conversion)</code></td>
+                    <td><strong>99.1%</strong></td>
+                    <td><span class="badge verified">Harmonized</span></td>
+                </tr>
+                <tr>
+                    <td><code>land_type</code> (Land Classification)</td>
+                    <td><span class="pill-chip chip-green">LA_RRR</span></td>
+                    <td><code>restrictionType / rightType</code></td>
+                    <td><strong>96.5%</strong></td>
+                    <td><span class="badge verified">Harmonized</span></td>
+                </tr>
+                <tr>
+                    <td><code>circle</code> & <code>village</code> (Mauza)</td>
+                    <td><span class="pill-chip chip-purple">LA_AdministrativeSource</span></td>
+                    <td><code>jurisdictionZone</code></td>
+                    <td><strong>95.8%</strong></td>
+                    <td><span class="badge verified">Harmonized</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

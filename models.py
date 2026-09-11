@@ -26,6 +26,12 @@ class LandRecord(db.Model):
     status = db.Column(db.String(50), default='Pending')
     validation_notes = db.Column(db.Text, nullable=True) # Stores warning/conflict JSON/text
 
+    # Spatial / 2D Land Marking Attributes
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
+    boundary_geojson = db.Column(db.Text, nullable=True) # GeoJSON Polygon geometry
+    crs = db.Column(db.String(50), default='EPSG:32645') # Default UTM 45N for Assam
+
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     def __init__(self, **kwargs):
@@ -51,5 +57,9 @@ class LandRecord(db.Model):
             "validation_score": self.validation_score,
             "status": self.status,
             "validation_notes": self.validation_notes,
-            "created_at": self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "boundary_geojson": self.boundary_geojson,
+            "crs": self.crs or 'EPSG:32645',
+            "created_at": self.created_at.strftime('%Y-%m-%d %H:%M:%S') if self.created_at else None
         }

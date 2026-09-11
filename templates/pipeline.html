@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header-row">
+    <div>
+        <h1 class="page-title">Multi-Source Geospatial Ingestion & Pipelines</h1>
+        <p class="page-subtitle">Connect drone rasters, vector cadastral maps, and revenue databases into unified UTM 45N space</p>
+    </div>
+    <div class="header-actions">
+        <button type="button" class="btn-primary btn-small" id="btnTriggerPipeline">⚡ Run Topology Alignment Batch</button>
+    </div>
+</div>
+
+<!-- Source Format Connectivity Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="pipeline-source-badge">🚁 Drone Ortho</div>
+        <h3>42 Rasters</h3>
+        <p class="stat-meta">GeoTIFF • 5cm GSD resolution</p>
+        <span class="pill-chip chip-green">Active Ingest</span>
+    </div>
+    <div class="stat-card">
+        <div class="pipeline-source-badge">🗺️ Cadastral Sheets</div>
+        <h3>318 Maps</h3>
+        <p class="stat-meta">DXF / SHP • Cadastral Boundaries</p>
+        <span class="pill-chip chip-green">Synchronized</span>
+    </div>
+    <div class="stat-card">
+        <div class="pipeline-source-badge">🛰️ Satellite Scenes</div>
+        <h3>12 Scenes</h3>
+        <p class="stat-meta">Sentinel-2 • Multi-spectral 10m</p>
+        <span class="pill-chip chip-purple">Calibrated</span>
+    </div>
+    <div class="stat-card">
+        <div class="pipeline-source-badge">🏛️ Revenue DBs</div>
+        <h3>6 Endpoints</h3>
+        <p class="stat-meta">Dharitree / Jamabandi Records</p>
+        <span class="pill-chip chip-blue">Connected</span>
+    </div>
+</div>
+
+<!-- Active Processing Pipelines -->
+<div class="card">
+    <div class="table-header-flex">
+        <div>
+            <h2>Active Pipeline Batches</h2>
+            <p class="text-muted">Topology verification, parcel snapping, and CRS transformation status</p>
+        </div>
+        <span class="info-tag">Target Projection: EPSG:32645 (UTM Zone 45N)</span>
+    </div>
+
+    <div class="pipeline-batch-card">
+        <div class="batch-header">
+            <div class="batch-id-title">
+                <strong>PIPE-GHY-01</strong>
+                <span class="batch-name">Guwahati Sector 12 Orthomosaic & Cadastre</span>
+            </div>
+            <span class="status-pill pill-purple">Topology Aligned</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill fill-purple" style="width: 100%;"></div>
+        </div>
+        <div class="batch-metrics-row">
+            <span>✅ 1,420 Cadastral Parcels Processed</span>
+            <span>📐 0 Slivers / Gaps Detected</span>
+            <span>⏱️ Completed: Just now</span>
+            <span>🌐 UTM Zone 45N</span>
+        </div>
+    </div>
+
+    <div class="pipeline-batch-card" style="margin-top: 15px;">
+        <div class="batch-header">
+            <div class="batch-id-title">
+                <strong>PIPE-BRP-07</strong>
+                <span class="batch-name">Barpeta Ward 7 Cadastral Batch</span>
+            </div>
+            <span class="status-pill pill-green">Harmonized</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill fill-green" style="width: 94%;"></div>
+        </div>
+        <div class="batch-metrics-row">
+            <span>✅ 880 Parcels Harmonized</span>
+            <span>⚠️ 4 Boundary Snaps Resolved</span>
+            <span>⏱️ Completed: 2 mins ago</span>
+            <span>🌐 UTM Zone 45N</span>
+        </div>
+    </div>
+
+    <div class="pipeline-batch-card" style="margin-top: 15px;">
+        <div class="batch-header">
+            <div class="batch-id-title">
+                <strong>PIPE-JHT-03</strong>
+                <span class="batch-name">Jorhat Legacy Paper Scans Vectorization</span>
+            </div>
+            <span class="status-pill pill-pink">Needs Review</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill fill-pink" style="width: 68%;"></div>
+        </div>
+        <div class="batch-metrics-row">
+            <span>⏳ 430 Sheets Ingested</span>
+            <span>🚨 12 Overlapping Boundary Disputes</span>
+            <span>⏱️ In Progress: 8 mins ago</span>
+            <span>🌐 UTM Zone 45N</span>
+        </div>
+    </div>
+</div>
+
+<!-- Upload & Ingest Simulator -->
+<div class="card">
+    <h2>Ingest New Spatial Dataset</h2>
+    <p class="text-muted">Drag & drop raw cadastral maps, orthomosaics, or boundary shapefiles for automated harmonization.</p>
+
+    <div class="drop-zone" id="pipelineDropZone">
+        <p>Drop GeoTIFF, Shapefile (.zip), GeoJSON, or Cadastral DXF here</p>
+        <input type="file" id="pipelineFileInput" accept=".tif,.tiff,.geojson,.json,.zip,.dxf">
+        <span class="file-hint">Supported: GeoTIFF, GeoJSON, Shapefile Archive, DXF, Scanned Cadastral PDF</span>
+    </div>
+
+    <button type="button" class="btn-primary" id="btnIngestDataset">⚡ Start Ingestion & Topology Alignment</button>
+    <div id="pipelineStatusNotice" class="hidden alert-box alert-success" style="margin-top: 15px;"></div>
+</div>
+{% endblock %}

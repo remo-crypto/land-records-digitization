@@ -59,6 +59,7 @@
                     <td><span class="badge {{ r.status | lower | replace(' ', '-') }}">{{ r.status }}</span></td>
                     <td class="action-cell">
                         <a href="{{ url_for('record_detail', record_id=r.id) }}" class="btn-sm" title="View details">View</a>
+                        <a href="{{ url_for('map_page') }}?dag={{ r.dag_number }}" class="btn-sm btn-map-sm" title="View on 2D Google Map">📍 Map</a>
                         <button type="button" class="btn-sm btn-verify-sm btn-verify-single {% if r.status == 'Verified' %}is-verified{% endif %}" 
                                 data-record-id="{{ r.id }}" 
                                 data-owner="{{ r.owner_name or 'Unknown' }}" 
@@ -88,7 +89,7 @@
 </div>
 
 <!-- Modal: Edit Land Record -->
-<div id="editModal" class="modal hidden">
+<div id="editModal" class="modal hidden" style="display: none !important;">
     <div class="modal-content">
         <div class="modal-header">
             <h3>Edit Land Record #<span id="editRecordIdDisplay"></span></h3>
@@ -163,7 +164,7 @@
 </div>
 
 <!-- Modal: Add Land Record Manually -->
-<div id="addModal" class="modal hidden">
+<div id="addModal" class="modal hidden" style="display: none !important;">
     <div class="modal-content">
         <div class="modal-header">
             <h3>Add Land Record to Registry</h3>
@@ -233,7 +234,7 @@
 </div>
 
 <!-- Modal: Manually Verify Land Record -->
-<div id="manualVerifyModal" class="modal hidden">
+<div id="manualVerifyModal" class="modal hidden" style="display: none !important;">
     <div class="modal-content">
         <div class="modal-header">
             <h3>Manual Verification: Record #<span id="verifyRecordIdDisplay"></span></h3>

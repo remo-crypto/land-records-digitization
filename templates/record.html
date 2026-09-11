@@ -7,6 +7,7 @@
         <div class="details-header">
             <h2>Record Information</h2>
             <div class="header-btns">
+                <a href="{{ url_for('map_page') }}?dag={{ record.dag_number }}" class="btn-secondary btn-small">🗺️ 2D Map Studio</a>
                 <button type="button" class="btn-primary btn-small btn-edit-single" data-record-id="{{ record.id }}">Edit Record</button>
                 <button class="btn-danger btn-small" id="deleteRecordBtn" data-record-id="{{ record.id }}">Delete This Record</button>
             </div>
@@ -95,7 +96,7 @@
 </div>
 
 <!-- Modal: Edit Record -->
-<div id="editModal" class="modal hidden">
+<div id="editModal" class="modal hidden" style="display: none !important;">
     <div class="modal-content">
         <div class="modal-header">
             <h3>Edit Land Record #<span id="editRecordIdDisplay">{{ record.id }}</span></h3>

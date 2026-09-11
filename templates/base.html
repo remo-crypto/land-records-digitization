@@ -3,36 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Land Record Intelligence System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>GeoHarmonize: Urban Land Record Intelligence</title>
+    <!-- Modern Typography & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet 2D GIS Map Engine -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.2">
 </head>
 <body>
     <div class="layout">
+        <!-- GeoHarmonize Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
-                <h2>LAND RECORD AI</h2>
-                <p>Digitization & Validation</p>
+                <div class="brand-logo-container">
+                    <div class="brand-icon-box">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                            <line x1="8" y1="2" x2="8" y2="18"></line>
+                            <line x1="16" y1="6" x2="16" y2="22"></line>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <h2>GeoHarmonize</h2>
+                        <p>Urban Land Record Intelligence</p>
+                    </div>
+                </div>
             </div>
             <nav class="menu">
-                <a href="{{ url_for('index') }}" class="nav-item">Dashboard</a>
-                <a href="{{ url_for('upload_page') }}" class="nav-item">Upload Document</a>
-                <a href="{{ url_for('records_page') }}" class="nav-item">All Records</a>
-                <a href="{{ url_for('verify_page') }}" class="nav-item">Verify Allotment</a>
+                <a href="{{ url_for('index') }}" class="nav-item {% if request.path == '/' %}active{% endif %}">
+                    <span class="nav-icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="{{ url_for('pipeline_page') }}" class="nav-item {% if request.path == '/pipeline' %}active{% endif %}">
+                    <span class="nav-icon">☁️</span>
+                    <span>Ingestion & Pipeline</span>
+                </a>
+                <a href="{{ url_for('map_page') }}" class="nav-item {% if request.path == '/map' %}active{% endif %}">
+                    <span class="nav-icon">🗺️</span>
+                    <span>2D Map Studio</span>
+                    <span class="nav-pill-badge">Google Map</span>
+                </a>
+                <a href="{{ url_for('schema_matcher_page') }}" class="nav-item {% if request.path == '/schema-matcher' %}active{% endif %}">
+                    <span class="nav-icon">🔗</span>
+                    <span>Schema Matcher</span>
+                </a>
+                <a href="{{ url_for('records_page') }}" class="nav-item {% if request.path == '/records' %}active{% endif %}">
+                    <span class="nav-icon">📋</span>
+                    <span>Land Records</span>
+                </a>
+                
+                <div class="menu-divider"></div>
+                <div class="menu-section-label">OPERATIONS</div>
+
+                <a href="{{ url_for('verify_page') }}" class="nav-item {% if request.path == '/verify' %}active{% endif %}">
+                    <span class="nav-icon">🛡️</span>
+                    <span>Verify Allotment</span>
+                </a>
+                <a href="{{ url_for('upload_page') }}" class="nav-item {% if request.path == '/upload' %}active{% endif %}">
+                    <span class="nav-icon">📤</span>
+                    <span>Upload Document</span>
+                </a>
             </nav>
+
+            <div class="sidebar-footer">
+                <div class="crs-sidebar-pill">
+                    <small>PROJECTION</small>
+                    <code>EPSG:32645 (UTM 45N)</code>
+                </div>
+            </div>
         </aside>
         
+        <!-- Main Application Viewport -->
         <main class="content">
             <header class="top-bar">
                 <div class="search-box">
-                    <input type="text" id="globalSearch" placeholder="Search Dag, Patta, Owner, Village..." onkeyup="handleSearch(event)">
+                    <div class="search-input-wrapper">
+                        <svg class="search-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="globalSearch" placeholder="Search Parcel ID, Dag, Owner, District..." onkeyup="handleSearch(event)" autocomplete="off">
+                    </div>
                     <div id="searchResults" class="search-results"></div>
                 </div>
+
+                <div class="top-bar-meta">
+                    <div class="crs-badge">
+                        <span class="crs-label">CRS:</span>
+                        <code class="crs-code">EPSG:32645 (UTM 45N)</code>
+                    </div>
+
+                    <div class="user-badge">
+                        <div class="avatar-circle">AR</div>
+                        <div class="user-meta">
+                            <span class="user-name">A. Rahman</span>
+                            <span class="user-role">GIS Administrator</span>
+                        </div>
+                    </div>
+                </div>
             </header>
+
             <div class="container">
                 {% block content %}{% endblock %}
             </div>
         </main>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <!-- Application Script -->
+    <script src="{{ url_for('static', filename='js/script.js') }}?v=2.2"></script>
 </body>
 </html>
